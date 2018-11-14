@@ -1,0 +1,6 @@
+[DEFAULT]
+SLACK_WEBHOOK_URL = https://hooks.slack.com/services/XXX/XX/XXX
+SLACK_CHANNEL_NAME = #you-channel
+GITLAB_API_BASE_URL = http://gitlab.yourhost.com/api/v4/
+GITLAB_PROJECT_ID = 382
+GITLAB_API_TOKEN = xxxxxxxxxxx
