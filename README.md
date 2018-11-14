@@ -1,5 +1,7 @@
 # Gitlab Suricate
 
+Development in progress..
+
 ![suricate logo](http://www.gifsanimes.com/data/media/1345/suricate-image-animee-0004.gif)
 
 ## Introduction
