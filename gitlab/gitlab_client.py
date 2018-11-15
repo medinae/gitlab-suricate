@@ -7,7 +7,7 @@ class GitlabClient:
 	def get_not_reviewed_merge_requests(self, order_by_update = False):
 		merge_requests = self.get_opened_merge_requests(order_by_update)
 
-		pending_mrs = [];
+		pending_mrs = []
 		for mr in merge_requests:
 			if self.is_merge_request_not_reviewed(mr):
 				title = mr['title']
@@ -36,7 +36,7 @@ class GitlabClient:
 		return json.loads(response.text)
 
 	def is_merge_request_not_reviewed(self, mr):
-		is_not_reviewed = False == mr['work_in_progress'] and 0 == mr['user_notes_count'];
+		is_not_reviewed = False == mr['work_in_progress'] and 0 == mr['user_notes_count']
 
 		try:
 			min_reviewed_upvotes_condition = int(self.config['MR_MIN_REVIEWED_UPVOTES_CONDITION'])

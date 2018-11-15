@@ -3,7 +3,7 @@ class ChainNotifier:
 		self.notifiers = notifiers
 
 	def notify(self, message):
-		for notifier in notifiers:
+		for notifier in self.notifiers:
 			try:
 				notifier.notify(message)
 			except AttributeError:
