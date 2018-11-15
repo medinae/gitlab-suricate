@@ -9,7 +9,7 @@ class GitlabClient:
 
 		pending_mrs = [];
 		for mr in merge_requests:
-			if 0 == mr['upvotes'] and 0 == mr['downvotes'] and 0 == mr['user_notes_count'] and False == mr['work_in_progress'] :
+			if self.is_merge_request_not_reviewed(mr):
 				title = mr['title']
 				title = title[:40]
 				title += "..."
@@ -36,3 +36,13 @@ class GitlabClient:
 			raise Exception('Error when trying to contact Gitlab API')
 
 		return json.loads(response.text)
+
+	def is_merge_request_not_reviewed(self, mr):
+		is_not_reviewed = False == mr['work_in_progress'] and 0 == mr['user_notes_count'];
+
+		try:
+			min_reviewed_upvotes_condition = int(self.config['MR_MIN_REVIEWED_UPVOTES_CONDITION'])
+		except:
+			min_reviewed_upvotes_condition = 1
+
+		return is_not_reviewed and (mr['upvotes'] < min_reviewed_upvotes_condition)

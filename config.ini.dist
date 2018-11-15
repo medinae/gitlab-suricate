@@ -4,3 +4,4 @@ SLACK_CHANNEL_NAME = #you-channel
 GITLAB_API_BASE_URL = http://gitlab.yourhost.com/api/v4/
 GITLAB_PROJECT_ID = 382
 GITLAB_API_TOKEN = xxxxxxxxxxx
+MR_MIN_REVIEWED_UPVOTES_CONDITION = 1
