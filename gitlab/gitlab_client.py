@@ -32,8 +32,7 @@ class GitlabClient:
 			'PRIVATE-TOKEN' : self.config['GITLAB_API_TOKEN']
 		})
 
-		if (200 != response.status_code):
-			raise Exception('Error when trying to contact Gitlab API')
+		response.raise_for_status()
 
 		return json.loads(response.text)
 
