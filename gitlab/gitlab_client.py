@@ -14,7 +14,6 @@ class GitlabClient:
 				title = title[:40]
 				title += "..."
 
-
 				pending_mrs.append({'url': mr['web_url'], 'label': title})
 
 		return pending_mrs

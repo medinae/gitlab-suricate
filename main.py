@@ -18,9 +18,12 @@ def main():
 	slack_notifier = SlackNotifier(config)
 	#notifiers.append(slack_notifier)
 
-	message = "There is %s non wip MRs without any votes/actions : \n" %(len(pending_merge_requests))
-	for mr in pending_merge_requests:
-		message += "%s => %s \n" %(mr['label'], mr['url'])
+	if 0 == len(pending_merge_requests):
+		message = "No pending MRs to review. I don't know if i have to congrats you or blame you guys..."
+	else:
+		message = "There is %s non wip MRs without any votes/actions : \n" %(len(pending_merge_requests))
+		for mr in pending_merge_requests:
+			message += "%s => %s \n" %(mr['label'], mr['url'])
 
 	print("Notify the slack channel...")
 	slack_notifier.notify(message)
