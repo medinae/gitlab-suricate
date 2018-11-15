@@ -1,8 +1,7 @@
-import requests, json
-from config_provider import ConfigProvider
-from gitlab_client import GitlabClient
-from chain_notifier import ChainNotifier
-from slack_notifier import SlackNotifier
+from config_management.config_provider import ConfigProvider
+from gitlab.gitlab_client import GitlabClient
+from notifier.chain_notifier import ChainNotifier
+from notifier.slack_notifier import SlackNotifier
 
 def main():
 	print("===== Gitlab Suricate =====")
