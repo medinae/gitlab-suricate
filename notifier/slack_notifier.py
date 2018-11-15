@@ -13,5 +13,4 @@ class SlackNotifier:
 			}
 		)
 
-		if (200 != response.status_code):
-			raise Exception('Error when trying to contact Slack API')
+		response.raise_for_status()
