@@ -24,7 +24,7 @@ def main():
 	else:
 		message = "There is %s non wip MRs without any votes/actions : \n" %(pending_merge_requests_count)
 		for mr in pending_merge_requests:
-			message += "%s => %s \n" %(mr['label'], mr['url'])
+			message += "%s => %s \n" %(mr.label, mr.web_url)
 
 	print("Notify the slack channel...")
 	slack_notifier.notify(message)

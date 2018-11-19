@@ -1,4 +1,5 @@
 import requests, json
+from .merge_request import MergeRequest
 
 class GitlabClient:
 	def __init__(self, config):
@@ -14,7 +15,7 @@ class GitlabClient:
 				title = title[:40]
 				title += "..."
 
-				pending_mrs.append({'url': mr['web_url'], 'label': title})
+				pending_mrs.append(MergeRequest(title, mr['web_url']))
 
 		return pending_mrs
 
