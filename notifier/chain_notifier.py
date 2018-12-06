@@ -1,5 +1,5 @@
 class ChainNotifier:
-	def __int__(self, notifiers):
+	def __init__(self, notifiers):
 		self.notifiers = notifiers
 
 	def notify(self, message):

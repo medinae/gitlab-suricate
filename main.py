@@ -3,6 +3,13 @@ from gitlab.gitlab_client import GitlabClient
 from notifier.chain_notifier import ChainNotifier
 from notifier.slack_notifier import SlackNotifier
 
+def build_chain_notifier(config):
+	notifiers = []
+	slack_notifier = SlackNotifier(config)
+	notifiers.append(slack_notifier)
+
+	return ChainNotifier(notifiers)
+
 def main():
 	print("===== Gitlab Suricate =====")
 
@@ -14,9 +21,7 @@ def main():
 	print("Fetching MRs from Gitlab API...")
 	pending_merge_requests = gitlab_client.get_not_reviewed_merge_requests(order_by_update=True)
 
-	#notifiers = []
-	slack_notifier = SlackNotifier(config)
-	#notifiers.append(slack_notifier)
+	chain_notifier = build_chain_notifier(config)
 
 	pending_merge_requests_count = len(pending_merge_requests)
 	if 0 == pending_merge_requests_count:
@@ -27,7 +32,7 @@ def main():
 			message += "%s => %s \n" %(mr.label, mr.web_url)
 
 	print("Notify the slack channel...")
-	slack_notifier.notify(message)
-	#chain_notifier = ChainNotifier(notifiers)
+	chain_notifier.notify(message)
+
 
 main()
