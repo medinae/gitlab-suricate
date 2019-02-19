@@ -1,4 +1,5 @@
 import configparser
+from typing import Dict
 
 class ConfigProvider:
 	def __init__(self):
@@ -6,5 +7,5 @@ class ConfigProvider:
 		config.read('config.ini')
 		self.config = config
 
-	def get_app_config(self):
+	def getAppConfig(self) -> Dict[int, str]:
 		return self.config['DEFAULT']

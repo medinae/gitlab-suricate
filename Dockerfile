@@ -1,4 +1,6 @@
-FROM python:3
+FROM python:3.7-alpine3.9
+
+RUN apk add --no-cache bash
 
 WORKDIR /usr/src/app
 
