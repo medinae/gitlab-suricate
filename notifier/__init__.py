@@ -1,2 +1,2 @@
-from .ChainNotifier import ChainNotifier
-from .SlackNotifier import SlackNotifier 
+from .chain_notifier import ChainNotifier
+from .slack_notifier import SlackNotifier 

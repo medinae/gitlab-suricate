@@ -1,14 +1,22 @@
 from config_management import ConfigProvider
-from gitlab import GitlabClient
+import gitlab
 from notifier import *
+from smealog import *
 from typing import Dict
 
-def buildChainNotifier(config: Dict[int, str]) -> ChainNotifier:
+def build_chain_notifier(config: Dict) -> ChainNotifier:
 	notifiers = []
-	slack_notifier = SlackNotifier(config)
-	notifiers.append(slack_notifier)
+	notifiers.append(SlackNotifier(config))
 
 	return ChainNotifier(notifiers)
+
+def resolve_logger(typ: str) -> AbstractLogger:
+	loggers = []
+	loggers.append(FileLogger())
+
+	resolver = LoggerResolver(loggers)
+
+	return resolver.resolve(typ)
 
 def main() -> None:
 	print("===== Gitlab Suricate =====")
@@ -16,22 +24,17 @@ def main() -> None:
 	conf = ConfigProvider()
 	config = conf.getAppConfig()
 
-	gitlab = GitlabClient(config)
+	logger = resolve_logger("file") # use conf here
+	gitlab_client = gitlab.GitlabClient(config, logger)
 
 	print("Fetching MRs from Gitlab API...")
-	pendingMrs = gitlab.getNotReviewedMergeRequests(orderByUpdate=True)
+	pending_mrs = gitlab_client.get_not_reviewed_merge_requests(order_by_update=True)
 
-	chainNotifier = buildChainNotifier(config)
+	formatter = gitlab.MessageFormatter()
+	msg = formatter.format(pending_mrs)
 
-	pendingMrsCount = len(pendingMrs)
-	if 0 == pendingMrsCount:
-		message = "No pending MRs to review. I don't know if i have to congrats you or blame you guys..."
-	else:
-		message = "There is %s non wip MRs without any votes/actions : \n" %(pendingMrsCount)
-		for mr in pendingMrs:
-			message += "%s => %s \n" %(mr.label, mr.webUrl)
-
+	chainNotifier = build_chain_notifier(config)
 	print("Notify the slack channel...")
-	chainNotifier.notify(message)
+	chainNotifier.notify(msg)
 
 main()

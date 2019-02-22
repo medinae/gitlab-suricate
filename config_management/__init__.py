@@ -1,1 +1,1 @@
-from .ConfigProvider import ConfigProvider
+from .config_provider import ConfigProvider
