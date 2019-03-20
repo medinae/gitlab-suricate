@@ -13,3 +13,8 @@ Development in progress..
 ## Installation
 
 > A **Dockerfile** and a **Makefile** is provided to you. Just by launching `make all` in the root dir of the project, you'll be able to connect inside the docker container and launch the main .py script.
+
+
+## Disclaimer
+
+> "Booooh ! Why don't you write test ?" : Don't worry, i'm a big software tests advocate ! Just that i shipped this small piece of code fastly as a small utils for a project, i didn't have the time to write them yet.
